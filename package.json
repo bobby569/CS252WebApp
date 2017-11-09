@@ -1,0 +1,26 @@
+{
+  "name": "lab6",
+  "version": "1.0.0",
+  "description": "Purdue 2048 Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bobby569/CS252WebApp.git"
+  },
+  "keywords": [
+    "CS252lab6"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bobby569/CS252WebApp/issues"
+  },
+  "homepage": "https://github.com/bobby569/CS252WebApp#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^4.13.1"
+  }
+}
