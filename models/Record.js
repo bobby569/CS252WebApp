@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 mongoose.model(
-	'record',
+	'records',
 	new Schema({
-    name: String,
-    score: Number
+		name: String,
+		score: Number
 	})
 );

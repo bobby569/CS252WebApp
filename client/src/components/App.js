@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header';
-import ActionInfo from './ActionInfo';
+import ActionInfo from '../containers/ActionInfo';
 
 export default class App extends Component {
 	render() {
