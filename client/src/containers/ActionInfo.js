@@ -102,7 +102,8 @@ export default class ActionInfo extends Component {
 
 						<MuiThemeProvider>
 							<Dialog
-								title="Please Enter Your Name"
+								title="Your Name, please"
+								contentStyle={{ width: '25%' }}
 								open={dialogOpen}
 								actions={actions}
 							>

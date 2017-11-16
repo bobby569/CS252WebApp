@@ -1,3 +1,4 @@
+import './App.css';
 import React, { Component } from 'react';
 import Header from './Header';
 import ActionInfo from '../containers/ActionInfo';

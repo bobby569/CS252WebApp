@@ -18,7 +18,11 @@ module.exports = app => {
 		const { name, score } = req.body;
 		Records.findOne({ name: name }).then(existName => {
 			if (existName) {
-				// TODO: update
+				if (existName.score < score) {
+					Records.updateOne({ name: name }, { name: name, score: score })
+						.then(item => res.send('Success'))
+						.catch(err => res.status(400).send('Fail'));
+				}
 				res.send('Success');
 			} else {
 				const record = new Records({
@@ -26,12 +30,8 @@ module.exports = app => {
 					score: score
 				})
 					.save()
-					.then(item => {
-						res.send('Success');
-					})
-					.catch(err => {
-						res.status(400).send('Fail');
-					});
+					.then(item => res.send('Success'))
+					.catch(err => res.status(400).send('Fail'));
 			}
 		});
 	});
