@@ -11,7 +11,7 @@ const app = express();
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
 
-require('./routes/saveRecord')(app);
+require('./routes/api')(app);
 
 const PORT = process.env.PORT || 8888;
 app.listen(PORT);
