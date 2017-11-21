@@ -22,8 +22,9 @@ module.exports = app => {
 					Records.updateOne({ name: name }, { name: name, score: score })
 						.then(item => res.send('Success'))
 						.catch(err => res.status(400).send('Fail'));
+				} else {
+					res.send('Success');
 				}
-				res.send('Success');
 			} else {
 				const record = new Records({
 					name: name,

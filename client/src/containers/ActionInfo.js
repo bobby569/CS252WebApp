@@ -67,6 +67,9 @@ export default class ActionInfo extends Component {
 		const buttonStyle = {
 			margin: '50px'
 		};
+		const dialogStyle = {
+			width: '25%'
+		};
 		const actions = [
 			<MuiThemeProvider>
 				<div>
@@ -83,40 +86,33 @@ export default class ActionInfo extends Component {
 				<div className="col s12 m6">
 					<div>
 						<MuiThemeProvider>
-							<RaisedButton
-								style={buttonStyle}
-								label="Restart"
-								primary={true}
-								onClick={this.props.handleReset}
-							/>
-						</MuiThemeProvider>
-
-						<MuiThemeProvider>
-							<RaisedButton
-								style={buttonStyle}
-								label="Save Score"
-								primary={true}
-								onClick={() => this.setState({ dialogOpen: true })}
-							/>
-						</MuiThemeProvider>
-
-						<MuiThemeProvider>
-							<Dialog
-								title="Your Name, please"
-								contentStyle={{ width: '25%' }}
-								open={dialogOpen}
-								actions={actions}
-							>
-								<TextField
-									hintText="Name"
-									value={name}
-									onChange={e => this.setState({ name: e.target.value })}
+							<div>
+								<RaisedButton
+									style={buttonStyle}
+									label="Restart"
+									primary={true}
+									onClick={this.props.handleReset}
 								/>
-							</Dialog>
-						</MuiThemeProvider>
-
-						<MuiThemeProvider>
-							<SavePrompt open={promptOpen} msg={promptMsg} />
+								<RaisedButton
+									style={buttonStyle}
+									label="Save Score"
+									primary={true}
+									onClick={() => this.setState({ dialogOpen: true })}
+								/>
+								<Dialog
+									title="Your Name, please"
+									contentStyle={dialogStyle}
+									open={dialogOpen}
+									actions={actions}
+								>
+									<TextField
+										hintText="Name"
+										value={name}
+										onChange={e => this.setState({ name: e.target.value })}
+									/>
+								</Dialog>
+								<SavePrompt open={promptOpen} msg={promptMsg} />
+							</div>
 						</MuiThemeProvider>
 					</div>
 				</div>
