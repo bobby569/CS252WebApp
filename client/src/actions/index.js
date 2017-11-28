@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as TYPE from 'types';
+import * as TYPE from './types';
 
 export function moveUp() {
 	const request = null;
@@ -35,7 +35,7 @@ export function init() {
 	const matrix = null;
 
 	return {
-		type: INIT,
+		type: TYPE.INIT,
 		payload: matrix
 	};
 }
