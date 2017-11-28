@@ -12,14 +12,15 @@
 		"server": "nodemon index.js",
 		"client": "npm run start --prefix client",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
-		"heroku-postbuild":
-			"NPM_CONFIG_PRODUCTION=false npm i --prefix client && npm run build --prefix client"
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm i --prefix client && npm run build --prefix client"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/bobby569/CS252WebApp.git"
 	},
-	"keywords": ["CS252lab6"],
+	"keywords": [
+		"CS252lab6"
+	],
 	"author": "",
 	"license": "ISC",
 	"bugs": {
@@ -28,8 +29,8 @@
 	"homepage": "https://github.com/bobby569/CS252WebApp#readme",
 	"dependencies": {
 		"body-parser": "^1.18.2",
-		"concurrently": "^3.5.0",
+		"concurrently": "^3.5.1",
 		"express": "^4.16.2",
-		"mongoose": "^4.13.1"
+		"mongoose": "^4.13.5"
 	}
 }
