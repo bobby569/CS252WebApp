@@ -2,6 +2,7 @@ import './App.css';
 import React, { Component } from 'react';
 import Header from './Header';
 import ActionInfo from '../containers/ActionInfo';
+import Board from '../containers/Board';
 
 export default class App extends Component {
 	render() {
@@ -9,7 +10,7 @@ export default class App extends Component {
 			<div className="container">
 				<Header />
 				<ActionInfo />
-				<h2>Loading</h2>
+				<Board />
 			</div>
 		);
 	}

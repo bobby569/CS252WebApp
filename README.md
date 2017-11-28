@@ -15,3 +15,5 @@ The 2048 game in Purdue CS version
 ### Technology and service will be using:
 
 MERN (MongoDB, Express, React, Node.js) Stack, Redux, mLab, Heroku
+
+[Here](https://guarded-brook-97184.herokuapp.com) is the link to the game.

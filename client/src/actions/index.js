@@ -1,16 +1,41 @@
 import axios from 'axios';
-
-export const MOVE_UP = 'MOVE_UP';
-export const MOVE_LEFT = 'MOVE_LEFT';
-export const MOVE_DOWN = 'MOVE_DOWN';
-export const MOVE_RIGHT = 'MOVE_RIGHT';
-export const SAVE_SCORE = 'SAVE_SCORE';
+import * as TYPE from 'types';
 
 export function moveUp() {
 	const request = null;
 
 	return {
-		type: MOVE_UP,
+		type: TYPE.MOVE_UP,
 		payload: request
+	};
+}
+
+export function moveDown() {
+	return {
+		type: TYPE.MOVE_DOWN,
+		payload: null
+	};
+}
+
+export function moveLeft() {
+	return {
+		type: TYPE.MOVE_LEFT,
+		payload: null
+	};
+}
+
+export function moveRight() {
+	return {
+		type: TYPE.MOVE_RIGHT,
+		payload: null
+	};
+}
+
+export function init() {
+	const matrix = null;
+
+	return {
+		type: INIT,
+		payload: matrix
 	};
 }

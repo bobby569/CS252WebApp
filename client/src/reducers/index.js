@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import GridReducer from './GridReducer';
+import MatrixReducer from './MatrixReducer';
 
 const rootReducer = combineReducers({
-	grid: GridReducer
+	matrix: MatrixReducer
 });
 
 export default rootReducer;
