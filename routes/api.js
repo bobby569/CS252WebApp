@@ -14,10 +14,9 @@ module.exports = app => {
 		const { score } = req.body;
 
 		Records.find()
-			.sort({ score: -1 })
 			.limit(1)
 			.then(obj => {
-				const maxScore = obj[0];
+				const maxScore = obj[0].score;
 
 				if (score > maxScore) {
 					Records.updateOne({ score: maxScore }, { score })
