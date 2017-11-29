@@ -1,4 +1,4 @@
-[Here](https://guarded-brook-97184.herokuapp.com) is the link to the game.
+[Here](https://purdue2048.herokuapp.com) is the link to the game.
 
 ### Team Member:
 
