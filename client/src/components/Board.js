@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import Row from '../components/Row';
+import _ from 'lodash';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+import Row from './Row';
 
 const DIM = 4;
 
 export default class Board extends Component {
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			matrix: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
 			tempMatrix: null,
@@ -15,6 +17,7 @@ export default class Board extends Component {
 		};
 
 		this.onKeyPress = this.onKeyPress.bind(this);
+		this.handleReset = this.handleReset.bind(this);
 	}
 
 	componentWillMount() {
@@ -130,14 +133,16 @@ export default class Board extends Component {
 	}
 
 	mergeCell(arr) {
+		let score = 0;
 		for (let i = DIM - 1; i > 0; i--) {
 			const val = arr[i];
 			if (val === arr[i - 1]) {
 				arr[i] *= 2;
 				arr[i - 1] = 0;
-				// this.score += val;
+				score += val;
 			}
 		}
+		this.props.updateScore(score);
 		const newArr = [];
 		for (let i = 0; i < DIM; i++) {
 			const val = arr[i];
@@ -219,31 +224,47 @@ export default class Board extends Component {
 		}
 		this.setState({ matrix: tempMatrix });
 		this.randomGenerate();
-		if (this.checkGameOver()) {
-			alert('Good Game!');
+		this.checkGameOver();
+	}
+
+	handleReset() {
+		this.props.handleReset();
+		const { matrix } = this.state;
+		for (let i = 0; i < DIM; i++) {
+			for (let j = 0; j < DIM; j++) {
+				matrix[i][j] = 0;
+			}
 		}
-		// do sth if game over
+		this.setState({ matrix });
+		this.randomGenerate();
 	}
 
 	render() {
 		const { matrix } = this.state;
-
+		const buttonStyle = {
+			margin: '50px'
+		};
+		const delay = 300;
 		return (
-			<div tabIndex="0" onKeyDown={this.onKeyPress}>
-				<table className="table table-bordered table-responsive">
-					<tbody>{matrix.map((row, idx) => <Row row={row} key={idx} />)}</tbody>
-				</table>
+			<div className="row">
+				<div className="col s12 m10">
+					<div tabIndex="0" onKeyDown={_.debounce(this.onKeyPress, delay)}>
+						<table className="table table-bordered table-responsive">
+							<tbody>{matrix.map((row, idx) => <Row row={row} key={idx} />)}</tbody>
+						</table>
+					</div>
+				</div>
+				<div className="col s12 m2">
+					<MuiThemeProvider>
+						<RaisedButton
+							style={buttonStyle}
+							label="Restart"
+							primary={true}
+							onClick={this.handleReset}
+						/>
+					</MuiThemeProvider>
+				</div>
 			</div>
 		);
 	}
 }
-
-// function mapStateToProps({reducer}) {
-//   return{reducer}
-// }
-//
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({reducer},dispatch)
-// }
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(Board)

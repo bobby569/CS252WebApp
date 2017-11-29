@@ -3,10 +3,6 @@ const mongoose = require('mongoose');
 const Records = mongoose.model('records');
 
 module.exports = app => {
-	app.get('/api/save', (req, res) => {
-		res.send('Saved');
-	});
-
 	app.get('/api/getMaxScore', (req, res) => {
 		Records.find()
 			.sort({ score: -1 })
@@ -15,25 +11,19 @@ module.exports = app => {
 	});
 
 	app.post('/api/save', (req, res) => {
-		const { name, score } = req.body;
-		Records.findOne({ name: name }).then(existName => {
-			if (existName) {
-				if (existName.score < score) {
-					Records.updateOne({ name: name }, { name: name, score: score })
+		const { score } = req.body;
+
+		Records.find()
+			.sort({ score: -1 })
+			.limit(1)
+			.then(obj => {
+				const maxScore = obj[0];
+
+				if (score > maxScore) {
+					Records.updateOne({ score: maxScore }, { score })
 						.then(item => res.send('Success'))
-						.catch(err => res.status(400).send('Fail'));
-				} else {
-					res.send('Success');
+						.catch(err => res.send('Fail'));
 				}
-			} else {
-				const record = new Records({
-					name: name,
-					score: score
-				})
-					.save()
-					.then(item => res.send('Success'))
-					.catch(err => res.status(400).send('Fail'));
-			}
-		});
+			});
 	});
 };
