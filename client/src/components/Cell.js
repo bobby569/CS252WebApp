@@ -2,6 +2,20 @@ import '../styles/color.css';
 import React, { Component } from 'react';
 import classnames from 'classnames';
 
+const mapping = {
+	2: 180,
+	4: 182,
+	8: 240,
+	16: 250,
+	32: 251,
+	64: 252,
+	128: 348,
+	256: 373,
+	512: 381,
+	1024: 471,
+	2048: 473
+};
+
 export default class Cell extends Component {
 	render() {
 		const numberStyle = {
@@ -24,7 +38,7 @@ export default class Cell extends Component {
 			<td>
 				<div className={classnames([cellStyle, { [color]: !!num }])}>
 					{/* change to 'num || null' */}
-					<div className={numberStyle}>{num}</div>
+					<div className={numberStyle}>{mapping[num] || 0}</div>
 				</div>
 			</td>
 		);

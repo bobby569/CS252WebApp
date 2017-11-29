@@ -16,12 +16,9 @@ export default class Board extends Component {
 			gameOver: false
 		};
 
+		this.randomGenerate();
 		this.onKeyPress = this.onKeyPress.bind(this);
 		this.handleReset = this.handleReset.bind(this);
-	}
-
-	componentWillMount() {
-		this.randomGenerate();
 	}
 
 	componentDidMount() {
@@ -30,6 +27,10 @@ export default class Board extends Component {
 
 	componentWillUnmount() {
 		document.removeEventListener('keydown', this.onKeyPress, false);
+	}
+
+	getRandomFrom(list) {
+		return list[Math.floor(Math.random() * list.length)];
 	}
 
 	getEmptyCells() {
@@ -45,10 +46,6 @@ export default class Board extends Component {
 		return emptyCells;
 	}
 
-	getRandom(list) {
-		return list[Math.floor(Math.random() * list.length)];
-	}
-
 	randomGenerate() {
 		const { matrix } = this.state;
 		const emptyCells = this.getEmptyCells();
@@ -58,8 +55,8 @@ export default class Board extends Component {
 			return;
 		}
 
-		const posi = this.getRandom(emptyCells);
-		matrix[posi[0]][posi[1]] = this.getRandom([2, 4]);
+		const posi = this.getRandomFrom(emptyCells);
+		matrix[posi[0]][posi[1]] = this.getRandomFrom([2, 4]);
 
 		this.setState({ matrix });
 	}
@@ -216,6 +213,8 @@ export default class Board extends Component {
 			case 40:
 				this.moveDown();
 				break;
+			default:
+				return;
 		}
 
 		const { tempMatrix } = this.state;
