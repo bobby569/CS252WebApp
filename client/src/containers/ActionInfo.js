@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 import axios from 'axios';
 
 import Dialog from 'material-ui/Dialog';
@@ -10,13 +10,13 @@ import RaisedButton from 'material-ui/RaisedButton';
 import ScoreBoard from '../components/ScoreBoard';
 import SavePrompt from '../components/SavePrompt';
 import TextField from 'material-ui/TextField';
+import { getMaxScore } from '../actions/index';
 
-export default class ActionInfo extends Component {
+class ActionInfo extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			maxScore: 0,
 			currScore: 0,
 			dialogOpen: false,
 			promptOpen: false,
@@ -24,16 +24,12 @@ export default class ActionInfo extends Component {
 			name: ''
 		};
 
-		this.getMaxScore();
 		this.handleClose = this.handleClose.bind(this);
 		this.handleSave = this.handleSave.bind(this);
 	}
 
-	getMaxScore() {
-		axios
-			.get('/api/getMaxScore')
-			.then(res => this.setState({ maxScore: res.data.score }))
-			.catch(err => console.log(err));
+	componentWillMount() {
+		this.props.getMaxScore();
 	}
 
 	handleClose() {
@@ -63,7 +59,8 @@ export default class ActionInfo extends Component {
 	}
 
 	render() {
-		const { maxScore, currScore, dialogOpen, promptOpen, promptMsg, name } = this.state;
+		const { currScore, dialogOpen, promptOpen, promptMsg, name } = this.state;
+		const { maxScore } = this.props;
 		const buttonStyle = {
 			margin: '50px'
 		};
@@ -121,11 +118,8 @@ export default class ActionInfo extends Component {
 	}
 }
 
-// function mapStateToProps({ reducer }) {
-// 	return { reducer };
-// }
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({reducer},dispatch)
-// }
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(ScoreBoard);
+function mapStateToProps({ maxScore }) {
+	return { maxScore };
+}
+
+export default connect(mapStateToProps, { getMaxScore })(ActionInfo);

@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import ScoreReducer from './ScoreReducer';
 import MatrixReducer from './MatrixReducer';
+import MaxScoreReducer from './MaxScoreReducer';
+import ScoreReducer from './ScoreReducer';
 
 const rootReducer = combineReducers({
-	score: ScoreReducer,
-	matrix: MatrixReducer
+	matrix: MatrixReducer,
+	maxScore: MaxScoreReducer,
+	score: ScoreReducer
 });
 
 export default rootReducer;

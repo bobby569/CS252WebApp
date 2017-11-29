@@ -5,8 +5,13 @@ import {
 	MOVE_DOWN,
 	MOVE_RIGHT,
 	SAVE_SCORE
-} from '../actions/';
+} from '../actions/types';
 
-export default function(state = null) {
-	return state;
+export default function(state = null, action) {
+	switch (action.type) {
+		case INIT:
+			return action.payload;
+		default:
+			return state;
+	}
 }
