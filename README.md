@@ -16,4 +16,4 @@ The 2048 game in Purdue CS version
 
 ### Technology and service will be using:
 
-MERN (MongoDB, Express, React, Node.js) Stack, Redux, mLab, Heroku
+MERN (MongoDB, Express, React, Node.js) Stack, mLab, Heroku
