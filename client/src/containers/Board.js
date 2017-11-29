@@ -219,7 +219,9 @@ export default class Board extends Component {
 		}
 		this.setState({ matrix: tempMatrix });
 		this.randomGenerate();
-		this.checkGameOver();
+		if (this.checkGameOver()) {
+			alert('Good Game!');
+		}
 		// do sth if game over
 	}
 
