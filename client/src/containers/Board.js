@@ -11,7 +11,6 @@ export default class Board extends Component {
 		this.state = {
 			matrix: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
 			tempMatrix: null,
-			hasMove: false,
 			gameOver: false
 		};
 
@@ -73,6 +72,14 @@ export default class Board extends Component {
 				if (val === 0 || val === matrix[row][col + 1] || val === matrix[row + 1][col]) {
 					return false;
 				}
+			}
+		}
+		for (let i = 0; i < DIM - 1; i++) {
+			if (matrix[i][3] === 0 || matrix[i][3] === matrix[i + 1][3]) {
+				return false;
+			}
+			if (matrix[3][i] === 0 || matrix[3][i] === matrix[3][i + 1]) {
+				return false;
 			}
 		}
 		const val = matrix[3][3];
@@ -187,11 +194,9 @@ export default class Board extends Component {
 		e.preventDefault();
 		const { matrix, gameOver } = this.state;
 		if (gameOver) {
-			console.log('game over');
 			return;
 		}
-		let tempMatrix = matrix.map(arr => arr.slice());
-		this.setState({ tempMatrix });
+		this.setState({ tempMatrix: matrix.map(arr => arr.slice()) });
 
 		switch (e.keyCode) {
 			case 37:
@@ -207,7 +212,11 @@ export default class Board extends Component {
 				this.moveDown();
 				break;
 		}
-		tempMatrix = this.state.tempMatrix;
+
+		const { tempMatrix } = this.state;
+		if (!this.hasMoved(matrix, tempMatrix)) {
+			return;
+		}
 		this.setState({ matrix: tempMatrix });
 		this.randomGenerate();
 		this.checkGameOver();
