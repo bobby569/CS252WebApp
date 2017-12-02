@@ -16,12 +16,12 @@ export default class Board extends Component {
 			gameOver: false
 		};
 
-		this.randomGenerate();
 		this.onKeyPress = this.onKeyPress.bind(this);
 		this.handleReset = this.handleReset.bind(this);
 	}
 
 	componentDidMount() {
+		this.randomGenerate();
 		document.addEventListener('keydown', this.onKeyPress, false);
 	}
 
