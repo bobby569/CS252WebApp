@@ -4,6 +4,9 @@ const { Schema } = mongoose;
 mongoose.model(
 	'records',
 	new Schema({
-		score: Number
+		userID: String,
+		name: String,
+		score: Number,
+		date: Date
 	})
 );
