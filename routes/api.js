@@ -16,7 +16,7 @@ module.exports = app => {
 			.then(obj => res.send(obj[0]));
 	});
 
-	app.get('/api/getPersonalMaxScore', checkLogin, async (req, res) => {
+	app.get('/api/getPersonalMaxScore', async (req, res) => {
 		const { id, score } = req.body;
 		// TODO: findOne
 		User.find({ id })

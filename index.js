@@ -6,8 +6,9 @@ const passport = require('passport');
 const path = require('path');
 const keys = require('./config/keys');
 require('./models/User');
-// require('./services/passport');
+require('./services/passport');
 
+mongoose.Promise = require('bluebird');
 mongoose.connect(keys.mongoURI, { useMongoClient: true });
 
 const app = express();
@@ -19,8 +20,8 @@ app.use(
 	})
 );
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import ScoreBoard from './ScoreBoard';
-import Board from './Board';
+import ScoreBoard from '../components/ScoreBoard';
+import Board from '../components/Board';
 
 export default class Content extends Component {
 	constructor(props) {
@@ -44,7 +44,7 @@ export default class Content extends Component {
 			<div>
 				<div className="row">
 					<ScoreBoard name="Highest Score" score={maxScore} />
-					<ScoreBoard name="Personal Record" score={currScore} />
+					<ScoreBoard name="Personal Record" score="--" />
 					<ScoreBoard name="Current Score" score={currScore} />
 				</div>
 				<Board

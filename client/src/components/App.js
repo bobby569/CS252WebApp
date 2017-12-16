@@ -1,9 +1,15 @@
 import './App.css';
 import React, { Component } from 'react';
-import Header from './Header';
-import Content from './Content';
+import { connect } from 'react-redux';
+import Header from '../containers/Header';
+import Content from '../containers/Content';
+import { fetchUser } from '../actions';
 
-export default class App extends Component {
+class App extends Component {
+	componentDidMount() {
+		this.props.fetchUser();
+	}
+
 	render() {
 		return (
 			<div className="container">
@@ -13,3 +19,5 @@ export default class App extends Component {
 		);
 	}
 }
+
+export default connect(null, { fetchUser })(App);

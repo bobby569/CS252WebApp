@@ -21,7 +21,7 @@ export default class Cell extends Component {
 		const { num } = this.props;
 		const color = `color-${num}`;
 		const numberStyle = {
-			color: 'white',
+			color: '#fdffea',
 			fontSize: '2rem'
 		};
 		return (

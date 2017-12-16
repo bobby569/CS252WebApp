@@ -1,5 +1,5 @@
 {
-	"name": "lab6",
+	"name": "Purdue2048",
 	"version": "1.0.0",
 	"description": "Purdue 2048 Game",
 	"main": "index.js",
@@ -19,7 +19,7 @@
 		"type": "git",
 		"url": "git+https://github.com/bobby569/CS252WebApp.git"
 	},
-	"keywords": ["CS252lab6"],
+	"keywords": ["Purdue2048"],
 	"author": "",
 	"license": "ISC",
 	"bugs": {
@@ -27,6 +27,7 @@
 	},
 	"homepage": "https://github.com/bobby569/CS252WebApp#readme",
 	"dependencies": {
+		"bluebird": "^3.5.1",
 		"body-parser": "^1.18.2",
 		"concurrently": "^3.5.1",
 		"cookie-session": "^2.0.0-beta.3",
@@ -36,6 +37,6 @@
 		"passport-google-oauth20": "^1.0.0"
 	},
 	"devDependencies": {
-		"nodemon": "^1.12.7"
+		"nodemon": "^1.13.3"
 	}
 }

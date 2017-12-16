@@ -9,12 +9,16 @@ export class Login extends Component {
 	static muiName = 'FlatButton';
 
 	render() {
-		return <FlatButton {...this.props} label="Login" />;
+		return <FlatButton {...this.props} label="Login" href="/auth/google" />;
 	}
 }
 
 export class Logged extends Component {
 	static muiName = 'IconMenu';
+
+	getScoreBoard(e) {
+		console.log('Getting Board!');
+	}
 
 	render() {
 		const style = { horizontal: 'right', vertical: 'top' };
@@ -29,8 +33,8 @@ export class Logged extends Component {
 				targetOrigin={style}
 				anchorOrigin={style}
 			>
-				<MenuItem primaryText="Scoreboard" />
-				<MenuItem primaryText="Logout" />
+				<MenuItem primaryText="Scoreboard" onClick={this.getScoreBoard} />
+				<MenuItem primaryText="Logout" href="/api/logout" />
 			</IconMenu>
 		);
 	}
