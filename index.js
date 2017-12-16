@@ -5,8 +5,8 @@ const parser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
 const keys = require('./config/keys');
-require('./models/Record');
-require('./services/passport');
+require('./models/User');
+// require('./services/passport');
 
 mongoose.connect(keys.mongoURI, { useMongoClient: true });
 
@@ -14,13 +14,13 @@ const app = express();
 
 app.use(
 	cookieSession({
-		maxAge: 10 * 24 * 60 * 60 * 1000
-		// keys: [keys.cookieKey]
+		maxAge: 7 * 24 * 60 * 60 * 1000,
+		keys: [keys.cookieKey]
 	})
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
 

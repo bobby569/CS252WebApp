@@ -44,6 +44,7 @@ export default class Content extends Component {
 			<div>
 				<div className="row">
 					<ScoreBoard name="Highest Score" score={maxScore} />
+					<ScoreBoard name="Personal Record" score={currScore} />
 					<ScoreBoard name="Current Score" score={currScore} />
 				</div>
 				<Board

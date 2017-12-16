@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
+import AppBar from 'material-ui/AppBar';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Login, Logged } from './NavButton';
 
-export default props => {
-	return (
-		<nav>
-			<div className="nav-wrapper cyan">
-				<a className="center brand-logo">2048 - Purdue CS Version</a>
-			</div>
-		</nav>
-	);
-};
+class Header extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			logged: false
+		};
+	}
+
+	render() {
+		return (
+			<MuiThemeProvider>
+				<AppBar
+					title="2048 - Purdue CS Version"
+					iconElementRight={this.state.logged ? <Logged /> : <Login />}
+				/>
+			</MuiThemeProvider>
+		);
+	}
+}
+
+export default Header;

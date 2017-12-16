@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 mongoose.model(
-	'records',
+	'users',
 	new Schema({
-		userID: String,
+		googleID: String,
 		name: String,
 		score: Number,
 		date: Date
