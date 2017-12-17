@@ -3,6 +3,7 @@ import _ from 'lodash';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import Row from './Row';
+import GameOverAlert from './GameOverAlert';
 
 const DIM = 4;
 
@@ -239,7 +240,7 @@ export default class Board extends Component {
 	}
 
 	render() {
-		const { matrix } = this.state;
+		const { matrix, gameOver } = this.state;
 		const buttonStyle = {
 			margin: '50px'
 		};
@@ -262,6 +263,11 @@ export default class Board extends Component {
 							onClick={this.handleReset}
 						/>
 					</MuiThemeProvider>
+					<GameOverAlert
+						open={gameOver}
+						onYes={this.handleReset}
+						onNo={() => this.setState({ gameOver: false })}
+					/>
 				</div>
 			</div>
 		);
