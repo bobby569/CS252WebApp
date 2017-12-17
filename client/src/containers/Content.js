@@ -1,24 +1,33 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import ScoreBoard from '../components/ScoreBoard';
 import Board from '../components/Board';
 
-export default class Content extends Component {
+class Content extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			maxScore: 0,
+			personalMaxScore: 0,
 			currScore: 0
 		};
 
-		this.getMaxScore();
 		this.handleReset = this.handleReset.bind(this);
+	}
+
+	componentDidMount() {
+		this.getMaxScore();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({ personalMaxScore: nextProps.auth.score });
 	}
 
 	getMaxScore() {
 		axios
 			.get('/api/getMaxScore')
-			.then(res => this.setState({ maxScore: res.data.score }))
+			.then(res => this.setState({ maxScore: res.data[0].score }))
 			.catch(err => console.log(err));
 	}
 
@@ -28,23 +37,24 @@ export default class Content extends Component {
 	}
 
 	updateScore(score) {
-		const { currScore, maxScore } = this.state;
+		const { personalMaxScore, currScore } = this.state;
 		const newScore = currScore + score;
 		this.setState({ currScore: newScore });
 
-		if (newScore > maxScore) {
-			this.setState({ maxScore: newScore });
-			axios.post('/api/save', { score: newScore });
+		if (this.props.auth && newScore > personalMaxScore) {
+			this.setState({ personalMaxScore: newScore });
+			axios.post('/api/saveScore', { score: newScore }).then(() => this.getMaxScore());
 		}
 	}
 
 	render() {
-		const { maxScore, currScore } = this.state;
+		const { maxScore, personalMaxScore, currScore } = this.state;
+		const { auth } = this.props;
 		return (
 			<div>
 				<div className="row">
 					<ScoreBoard name="Highest Score" score={maxScore} />
-					<ScoreBoard name="Personal Record" score="--" />
+					<ScoreBoard name="Personal Record" score={auth ? personalMaxScore : '--'} />
 					<ScoreBoard name="Current Score" score={currScore} />
 				</div>
 				<Board
@@ -55,3 +65,9 @@ export default class Content extends Component {
 		);
 	}
 }
+
+function mapStateToProps({ auth }) {
+	return { auth };
+}
+
+export default connect(mapStateToProps)(Content);

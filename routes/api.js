@@ -9,27 +9,14 @@ function checkLogin(req, res, next) {
 }
 
 module.exports = app => {
-	app.get('/api/getMaxScore', async (req, res) => {
+	app.get('/api/getMaxScore', (req, res) => {
 		User.find()
 			.sort({ score: -1 })
-			.limit(1)
-			.then(obj => res.send(obj[0]));
+			.limit(3)
+			.then(obj => res.send(obj));
 	});
 
-	app.get('/api/getPersonalMaxScore', async (req, res) => {
-		const { id, score } = req.body;
-		// TODO: findOne
-		User.find({ id })
-			.limit(1)
-			.then(obj => {
-				const maxScore = obj[0].score;
-				if (score > maxScore) {
-					console.log('hello');
-				}
-			});
-	});
-
-	app.post('/api/save', (req, res) => {
+	app.post('/api/saveScore', (req, res) => {
 		const { score } = req.body;
 
 		User.find()

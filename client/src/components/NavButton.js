@@ -33,7 +33,7 @@ export class Logged extends Component {
 				targetOrigin={style}
 				anchorOrigin={style}
 			>
-				<MenuItem primaryText="Scoreboard" onClick={this.getScoreBoard} />
+				<MenuItem primaryText="Leaderboard" onClick={this.getScoreBoard} />
 				<MenuItem primaryText="Logout" href="/api/logout" />
 			</IconMenu>
 		);
