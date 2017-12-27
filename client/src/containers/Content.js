@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import ScoreBoard from '../components/ScoreBoard';
+import ScoreCard from '../components/ScoreCard';
 import Board from '../components/Board';
 
 class Content extends Component {
@@ -53,9 +53,9 @@ class Content extends Component {
 		return (
 			<div>
 				<div className="row">
-					<ScoreBoard name="Highest Score" score={maxScore} />
-					<ScoreBoard name="Personal Record" score={auth ? personalMaxScore : '--'} />
-					<ScoreBoard name="Current Score" score={currScore} />
+					<ScoreCard name="Highest Score" score={maxScore} />
+					<ScoreCard name="Personal Record" score={auth ? personalMaxScore : '--'} />
+					<ScoreCard name="Current Score" score={currScore} />
 				</div>
 				<Board
 					handleReset={() => this.handleReset()}

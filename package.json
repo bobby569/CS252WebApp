@@ -12,14 +12,15 @@
 		"server": "nodemon index.js",
 		"client": "npm run start --prefix client",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
-		"heroku-postbuild":
-			"NPM_CONFIG_PRODUCTION=false npm i --prefix client && npm run build --prefix client"
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm i --prefix client && npm run build --prefix client"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/bobby569/CS252WebApp.git"
 	},
-	"keywords": ["Purdue2048"],
+	"keywords": [
+		"Purdue2048"
+	],
 	"author": "",
 	"license": "ISC",
 	"bugs": {
@@ -37,6 +38,6 @@
 		"passport-google-oauth20": "^1.0.0"
 	},
 	"devDependencies": {
-		"nodemon": "^1.13.3"
+		"nodemon": "^1.14.3"
 	}
 }

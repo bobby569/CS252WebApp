@@ -12,8 +12,8 @@ export default class GameOverAlert extends React.Component {
 	render() {
 		const { open, onYes, onNo } = this.props;
 		const actions = [
-			<FlatButton label="Sure! Be the best!" primary={true} onClick={onYes} />,
-			<FlatButton label="No! Need to work!" primary={true} onClick={onNo} />
+			<FlatButton label="Sure" primary={true} onClick={onYes} />,
+			<FlatButton label="Not now" primary={true} onClick={onNo} />
 		];
 
 		return (
@@ -24,7 +24,8 @@ export default class GameOverAlert extends React.Component {
 					contentStyle={dialogStyle}
 					open={open}
 				>
-					Game over! You can definitely do better. Want a new game?
+					Game over! You cannot graduation this time. You can definitely do better. Try
+					again?
 				</Dialog>
 			</MuiThemeProvider>
 		);

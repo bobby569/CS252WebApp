@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Login, Logged } from '../components/NavButton';
+import { Login, Logged } from '../components/LogButton';
 
 class Header extends Component {
 	render() {

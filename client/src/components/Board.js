@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-import Row from './Row';
 import GameOverAlert from './GameOverAlert';
+import Row from './Row';
 
 const DIM = 4;
 
