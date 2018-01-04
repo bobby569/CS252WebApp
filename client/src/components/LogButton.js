@@ -34,7 +34,7 @@ export class Logged extends Component {
 		axios
 			.get('/api/getMaxScore')
 			.then(res => this.setState({ ranks: res.data }))
-			.catch(err => console.log(err));
+			.catch(err => console.error(err));
 	}
 
 	getScoreBoard() {

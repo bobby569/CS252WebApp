@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Avatar from 'material-ui/Avatar';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {
@@ -10,18 +11,31 @@ import {
 	TableRowColumn
 } from 'material-ui/Table';
 
+const styles = {
+	col1: {
+		paddingLeft: '80px'
+	},
+	col2: {
+		margin: '5px'
+	},
+	col3: {
+		paddingLeft: '42px'
+	}
+};
+
 export default class ScoreBoard extends Component {
 	renderRank() {
 		const { ranks } = this.props;
-		if (!ranks) {
-			return;
-		}
+		if (!ranks) return;
 		return ranks.map((rank, idx) => {
 			return (
 				<TableRow key={rank._id}>
-					<TableRowColumn>{idx + 1}</TableRowColumn>
-					<TableRowColumn>{rank.name}</TableRowColumn>
-					<TableRowColumn>{rank.score}</TableRowColumn>
+					<TableRowColumn style={styles.col1}>{idx + 1}</TableRowColumn>
+					<TableRowColumn>
+						<Avatar src={rank.photo} size={25} style={styles.col2} />
+						{rank.name}
+					</TableRowColumn>
+					<TableRowColumn style={styles.col3}>{rank.score}</TableRowColumn>
 				</TableRow>
 			);
 		});
@@ -35,7 +49,7 @@ export default class ScoreBoard extends Component {
 
 		return (
 			<div>
-				<Dialog title="Score Board (Top 3)" actions={actions} open={open}>
+				<Dialog title="Score Board - Top 3" actions={actions} open={open}>
 					<Table>
 						<TableHeader displaySelectAll={false}>
 							<TableRow>

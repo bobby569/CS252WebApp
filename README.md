@@ -1,4 +1,4 @@
-[Here](https://purdue2048.herokuapp.com) is the link to the game.
+[Play the game!](https://purdue2048.herokuapp.com)
 
 [Here](https://github.com/bobby569/CS252WebApp/tree/1701c25b7f748a5b359536b94c23f0356c46d2ed)
 is the version submitted for Fall 2017 Lab6 grading.

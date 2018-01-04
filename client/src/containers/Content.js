@@ -2,18 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import ScoreCard from '../components/ScoreCard';
-import Board from '../components/Board';
+import Board from '../components/Board/Board';
 
 class Content extends Component {
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			maxScore: 0,
 			personalMaxScore: 0,
 			currScore: 0
 		};
-
-		this.handleReset = this.handleReset.bind(this);
 	}
 
 	componentDidMount() {
@@ -28,12 +27,7 @@ class Content extends Component {
 		axios
 			.get('/api/getMaxScore')
 			.then(res => this.setState({ maxScore: res.data[0].score }))
-			.catch(err => console.log(err));
-	}
-
-	handleReset() {
-		const currScore = 0;
-		this.setState({ currScore });
+			.catch(err => console.error(err));
 	}
 
 	updateScore(score) {
@@ -58,7 +52,7 @@ class Content extends Component {
 					<ScoreCard name="Current Score" score={currScore} />
 				</div>
 				<Board
-					handleReset={() => this.handleReset()}
+					handleReset={() => this.setState({ currScore: 0 })}
 					updateScore={score => this.updateScore(score)}
 				/>
 			</div>

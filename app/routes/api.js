@@ -1,13 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('users');
 
-function checkLogin(req, res, next) {
-	if (!req.user) {
-		return res.send('--');
-	}
-	next();
-}
-
 module.exports = app => {
 	app.get('/api/getMaxScore', (req, res) => {
 		User.find()

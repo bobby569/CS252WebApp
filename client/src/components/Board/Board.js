@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import GameOverAlert from './GameOverAlert';
@@ -244,11 +243,10 @@ export default class Board extends Component {
 		const buttonStyle = {
 			margin: '50px'
 		};
-		const delay = 300;
 		return (
 			<div className="row">
 				<div className="col s12 m10">
-					<div tabIndex="0" onKeyDown={_.debounce(this.onKeyPress, delay)}>
+					<div tabIndex="0" onKeyDown={this.onKeyPress}>
 						<table className="table table-bordered table-responsive">
 							<tbody>{matrix.map((row, idx) => <Row row={row} key={idx} />)}</tbody>
 						</table>
@@ -262,6 +260,15 @@ export default class Board extends Component {
 							primary={true}
 							onClick={this.handleReset}
 						/>
+					</MuiThemeProvider>
+					{/* TODO: not working */}
+					<MuiThemeProvider>
+						<div>
+							<RaisedButton onClick={this.moveUp}>UP</RaisedButton>
+							<RaisedButton onClick={this.moveLeft}>LEFT</RaisedButton>
+							<RaisedButton onClick={this.moveDown}>DOWN</RaisedButton>
+							<RaisedButton onClick={this.moveRight}>RIGHT</RaisedButton>
+						</div>
 					</MuiThemeProvider>
 					<GameOverAlert
 						open={gameOver}

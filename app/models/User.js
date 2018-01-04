@@ -6,7 +6,8 @@ mongoose.model(
 	new Schema({
 		googleID: String,
 		name: String,
-		score: Number,
+		score: { type: Number, default: 0 },
+		photo: String,
 		date: Date
 	})
 );
