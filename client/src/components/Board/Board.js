@@ -1,3 +1,4 @@
+import './styles/general.css';
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -5,6 +6,21 @@ import GameOverAlert from './GameOverAlert';
 import Row from './Row';
 
 const DIM = 4;
+
+const hasMoved = function(mat1, mat2) {
+	for (let i = 0; i < DIM; i++) {
+		for (let j = 0; j < DIM; j++) {
+			if (mat1[i][j] !== mat2[i][j]) {
+				return true;
+			}
+		}
+	}
+	return false;
+};
+
+const getRandomFrom = function(arr) {
+	return arr[~~(Math.random() * arr.length)];
+};
 
 export default class Board extends Component {
 	constructor(props) {
@@ -29,20 +45,14 @@ export default class Board extends Component {
 		document.removeEventListener('keydown', this.onKeyPress, false);
 	}
 
-	getRandomFrom(list) {
-		return list[Math.floor(Math.random() * list.length)];
-	}
-
 	getEmptyCells() {
 		const { matrix } = this.state;
 		const emptyCells = [];
-		for (let row = 0; row < DIM; row++) {
-			for (let col = 0; col < DIM; col++) {
-				if (matrix[row][col] === 0) {
-					emptyCells.push([row, col]);
-				}
-			}
-		}
+		matrix.forEach((r, ridx) =>
+			r.forEach((c, cidx) => {
+				if (c === 0) emptyCells.push([ridx, cidx]);
+			})
+		);
 		return emptyCells;
 	}
 
@@ -50,22 +60,18 @@ export default class Board extends Component {
 		const { matrix } = this.state;
 		const emptyCells = this.getEmptyCells();
 
-		if (emptyCells.length === 0) {
-			this.setState({ gameOver: true });
-			return;
-		}
+		if (emptyCells.length === 0) return this.setState({ gameOver: true });
 
-		const posi = this.getRandomFrom(emptyCells);
-		matrix[posi[0]][posi[1]] = this.getRandomFrom([2, 4]);
+		const loc = getRandomFrom(emptyCells);
+		matrix[loc[0]][loc[1]] = getRandomFrom([2, 4]);
 
 		this.setState({ matrix });
 	}
 
-	checkGameOver() {
+	isGameOver() {
 		const { matrix, gameOver } = this.state;
-		if (gameOver) {
-			return true;
-		}
+		if (gameOver) return true;
+
 		for (let row = 0; row < DIM - 1; row++) {
 			for (let col = 0; col < DIM - 1; col++) {
 				const val = matrix[row][col];
@@ -75,30 +81,13 @@ export default class Board extends Component {
 			}
 		}
 		for (let i = 0; i < DIM - 1; i++) {
-			if (matrix[i][3] === 0 || matrix[i][3] === matrix[i + 1][3]) {
-				return false;
-			}
-			if (matrix[3][i] === 0 || matrix[3][i] === matrix[3][i + 1]) {
-				return false;
-			}
+			if (matrix[i][3] === 0 || matrix[i][3] === matrix[i + 1][3]) return false;
+			if (matrix[3][i] === 0 || matrix[3][i] === matrix[3][i + 1]) return false;
 		}
 		const val = matrix[3][3];
-		if (val === 0 || val === matrix[2][3] || val === matrix[3][2]) {
-			return false;
-		}
-		this.setState({ gameOver: true });
-		return true;
-	}
+		if (val === 0 || val === matrix[2][3] || val === matrix[3][2]) return false;
 
-	hasMoved(mat1, mat2) {
-		for (let i = 0; i < DIM; i++) {
-			for (let j = 0; j < DIM; j++) {
-				if (mat1[i][j] !== mat2[i][j]) {
-					return true;
-				}
-			}
-		}
-		return false;
+		return true;
 	}
 
 	rotateRight() {
@@ -106,13 +95,12 @@ export default class Board extends Component {
 		const newMatrix = [];
 		for (let col = 0; col < DIM; col++) {
 			const newRow = [];
-			for (let row = DIM - 1; row > -1; row--) {
+			for (let row = DIM - 1; row >= 0; row--) {
 				newRow.push(tempMatrix[row][col]);
 			}
 			newMatrix.push(newRow);
 		}
 		this.setState({ tempMatrix: newMatrix });
-		return;
 	}
 
 	rotateLeft() {
@@ -126,7 +114,6 @@ export default class Board extends Component {
 			newMatrix.push(newRow);
 		}
 		this.setState({ tempMatrix: newMatrix });
-		return;
 	}
 
 	mergeCell(arr) {
@@ -161,7 +148,6 @@ export default class Board extends Component {
 			newMatrix.push(this.mergeCell(newRow));
 		}
 		this.setState({ tempMatrix: newMatrix });
-		return;
 	}
 
 	moveLeft() {
@@ -170,34 +156,28 @@ export default class Board extends Component {
 		this.shiftRight();
 		this.rotateLeft();
 		this.rotateLeft();
-		return;
 	}
 
 	moveUp() {
 		this.rotateRight();
 		this.shiftRight();
 		this.rotateLeft();
-		return;
 	}
 
 	moveRight() {
 		this.shiftRight();
-		return;
 	}
 
 	moveDown() {
 		this.rotateLeft();
 		this.shiftRight();
 		this.rotateRight();
-		return;
 	}
 
 	onKeyPress(e) {
-		e.preventDefault();
 		const { matrix, gameOver } = this.state;
-		if (gameOver) {
-			return;
-		}
+		if (gameOver) return;
+
 		this.setState({ tempMatrix: matrix.map(arr => arr.slice()) });
 
 		switch (e.keyCode) {
@@ -218,31 +198,23 @@ export default class Board extends Component {
 		}
 
 		const { tempMatrix } = this.state;
-		if (!this.hasMoved(matrix, tempMatrix)) {
-			return;
-		}
+		if (!hasMoved(matrix, tempMatrix)) return;
+
 		this.setState({ matrix: tempMatrix });
 		this.randomGenerate();
-		this.checkGameOver();
+		this.setState({ gameOver: this.isGameOver() });
 	}
 
 	handleReset() {
 		this.props.handleReset();
 		const { matrix } = this.state;
-		for (let i = 0; i < DIM; i++) {
-			for (let j = 0; j < DIM; j++) {
-				matrix[i][j] = 0;
-			}
-		}
+		matrix.forEach((r, ridx) => r.forEach((c, cidx) => (matrix[ridx][cidx] = 0)));
 		this.setState({ matrix, gameOver: false });
 		this.randomGenerate();
 	}
 
 	render() {
 		const { matrix, gameOver } = this.state;
-		const buttonStyle = {
-			margin: '50px'
-		};
 		return (
 			<div className="row">
 				<div className="col s12 m10">
@@ -252,22 +224,28 @@ export default class Board extends Component {
 						</table>
 					</div>
 				</div>
+
 				<div className="col s12 m2">
 					<MuiThemeProvider>
 						<RaisedButton
-							style={buttonStyle}
+							className="action-button"
 							label="Restart"
 							primary={true}
 							onClick={this.handleReset}
 						/>
 					</MuiThemeProvider>
-					{/* TODO: not working */}
+					{/* TODO: fix action call */}
 					<MuiThemeProvider>
 						<div>
-							<RaisedButton onClick={this.moveUp}>UP</RaisedButton>
-							<RaisedButton onClick={this.moveLeft}>LEFT</RaisedButton>
-							<RaisedButton onClick={this.moveDown}>DOWN</RaisedButton>
-							<RaisedButton onClick={this.moveRight}>RIGHT</RaisedButton>
+							<RaisedButton
+								className="action-button"
+								onClick={() => console.log('Hello')}
+							>
+								UP
+							</RaisedButton>
+							<RaisedButton className="action-button">LEFT</RaisedButton>
+							<RaisedButton className="action-button">DOWN</RaisedButton>
+							<RaisedButton className="action-button">RIGHT</RaisedButton>
 						</div>
 					</MuiThemeProvider>
 					<GameOverAlert

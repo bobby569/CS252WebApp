@@ -1,4 +1,5 @@
 import './styles/color.css';
+import './styles/general.css';
 import React, { Component } from 'react';
 import classnames from 'classnames';
 
@@ -22,13 +23,11 @@ export default class Cell extends Component {
 		const color = `color-${num}`;
 		const numberStyle = {
 			color: '#fdffea',
-			fontSize: '2rem'
+			fontSize: '2.5rem'
 		};
 		return (
-			<td className={classnames([{ [color]: !!num }])}>
-				<div>
-					<div style={numberStyle}>{mapping[num] || '000'}</div>
-				</div>
+			<td className={classnames({ [color]: !!num })}>
+				<div style={numberStyle}>{mapping[num] || '000'}</div>
 			</td>
 		);
 	}

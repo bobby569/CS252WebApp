@@ -1,0 +1,12 @@
+.action-button {
+	margin: 10px;
+}
+
+.table-bordered td {
+ border: 5px solid #EEEDDD;
+}
+
+.number {
+	color: '#fdffea';
+	font-size: '2.3rem';
+}
