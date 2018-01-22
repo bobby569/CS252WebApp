@@ -5,22 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import GameOverAlert from './GameOverAlert';
 import Row from './Row';
 
-const DIM = 4;
-
-const hasMoved = function(mat1, mat2) {
-	for (let i = 0; i < DIM; i++) {
-		for (let j = 0; j < DIM; j++) {
-			if (mat1[i][j] !== mat2[i][j]) {
-				return true;
-			}
-		}
-	}
-	return false;
-};
-
-const getRandomFrom = function(arr) {
-	return arr[~~(Math.random() * arr.length)];
-};
+import { DIM, hasMoved, getRandomFrom, mergeCell } from './util';
 
 export default class Board extends Component {
 	constructor(props) {
@@ -116,37 +101,23 @@ export default class Board extends Component {
 		this.setState({ tempMatrix: newMatrix });
 	}
 
-	mergeCell(arr) {
-		let score = 0;
-		for (let i = DIM - 1; i > 0; i--) {
-			const val = arr[i];
-			if (val === arr[i - 1]) {
-				arr[i] *= 2;
-				arr[i - 1] = 0;
-				score += val;
-			}
-		}
-		this.props.updateScore(score);
-		const newArr = [];
-		for (let i = 0; i < DIM; i++) {
-			const val = arr[i];
-			val === 0 ? newArr.unshift(val) : newArr.push(val);
-		}
-		return newArr;
-	}
-
 	shiftRight() {
 		const { tempMatrix } = this.state;
-		const newMatrix = [];
+		let val,
+			score = 0,
+			newMatrix = [];
 
 		for (let row = 0; row < DIM; row++) {
-			var newRow = [];
+			let newRow = [];
 			for (let col = 0; col < DIM; col++) {
-				const val = tempMatrix[row][col];
+				val = tempMatrix[row][col];
 				val === 0 ? newRow.unshift(val) : newRow.push(val);
 			}
-			newMatrix.push(this.mergeCell(newRow));
+			const [add, newArr] = mergeCell(newRow);
+			score += add;
+			newMatrix.push(newArr);
 		}
+		this.props.updateScore(score);
 		this.setState({ tempMatrix: newMatrix });
 	}
 
@@ -207,7 +178,7 @@ export default class Board extends Component {
 
 	handleReset() {
 		this.props.handleReset();
-		const { matrix } = this.state;
+		let { matrix } = this.state;
 		matrix.forEach((r, ridx) => r.forEach((c, cidx) => (matrix[ridx][cidx] = 0)));
 		this.setState({ matrix, gameOver: false });
 		this.randomGenerate();
@@ -217,7 +188,7 @@ export default class Board extends Component {
 		const { matrix, gameOver } = this.state;
 		return (
 			<div className="row">
-				<div className="col s12 m10">
+				<div className="col s12 m10 board">
 					<div tabIndex="0" onKeyDown={this.onKeyPress}>
 						<table className="table table-bordered table-responsive">
 							<tbody>{matrix.map((row, idx) => <Row row={row} key={idx} />)}</tbody>
@@ -225,35 +196,22 @@ export default class Board extends Component {
 					</div>
 				</div>
 
-				<div className="col s12 m2">
+				<div className="col s12 m2 board">
 					<MuiThemeProvider>
 						<RaisedButton
-							className="action-button"
+							className="button"
 							label="Restart"
 							primary={true}
 							onClick={this.handleReset}
 						/>
 					</MuiThemeProvider>
-					{/* TODO: fix action call */}
-					<MuiThemeProvider>
-						<div>
-							<RaisedButton
-								className="action-button"
-								onClick={() => console.log('Hello')}
-							>
-								UP
-							</RaisedButton>
-							<RaisedButton className="action-button">LEFT</RaisedButton>
-							<RaisedButton className="action-button">DOWN</RaisedButton>
-							<RaisedButton className="action-button">RIGHT</RaisedButton>
-						</div>
-					</MuiThemeProvider>
-					<GameOverAlert
-						open={gameOver}
-						onYes={this.handleReset}
-						onNo={() => this.setState({ gameOver: false })}
-					/>
 				</div>
+
+				<GameOverAlert
+					open={gameOver}
+					onYes={this.handleReset}
+					onNo={() => this.setState({ gameOver: false })}
+				/>
 			</div>
 		);
 	}

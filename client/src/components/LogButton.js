@@ -30,15 +30,11 @@ export class Logged extends Component {
 		this.closeScoreBoard = this.closeScoreBoard.bind(this);
 	}
 
-	componentDidMount() {
+	getScoreBoard() {
 		axios
 			.get('/api/getMaxScore')
-			.then(res => this.setState({ ranks: res.data }))
+			.then(res => this.setState({ ranks: res.data, open: true }))
 			.catch(err => console.error(err));
-	}
-
-	getScoreBoard() {
-		this.setState({ open: true });
 	}
 
 	closeScoreBoard() {

@@ -31,13 +31,13 @@ class Content extends Component {
 	}
 
 	updateScore(score) {
-		const { personalMaxScore, currScore } = this.state;
-		const newScore = currScore + score;
-		this.setState({ currScore: newScore });
+		let { personalMaxScore, currScore } = this.state;
+		currScore += score;
+		this.setState({ currScore });
 
-		if (this.props.auth && newScore > personalMaxScore) {
-			this.setState({ personalMaxScore: newScore });
-			axios.post('/api/saveScore', { score: newScore }).then(() => this.getMaxScore());
+		if (this.props.auth && currScore > personalMaxScore) {
+			this.setState({ personalMaxScore: currScore });
+			axios.post('/api/saveScore', { score: currScore }).then(() => this.getMaxScore());
 		}
 	}
 

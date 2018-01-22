@@ -2,26 +2,20 @@ const mongoose = require('mongoose');
 const User = mongoose.model('users');
 
 module.exports = app => {
-	app.get('/api/getMaxScore', (req, res) => {
-		User.find()
+	app.get('/api/getMaxScore', async (req, res) => {
+		const user = await User.find()
 			.sort({ score: -1 })
-			.limit(3)
-			.then(obj => res.send(obj));
+			.limit(3);
+		res.send(user);
 	});
 
-	app.post('/api/saveScore', (req, res) => {
-		const { score } = req.body;
+	app.post('/api/saveScore', async (req, res) => {
+		const { body: { score }, user: { googleID } } = req;
 
-		User.find()
-			.limit(1)
-			.then(obj => {
-				const maxScore = obj[0].score;
-
-				if (score > maxScore) {
-					User.updateOne({ score: maxScore }, { score })
-						.then(item => res.send('Success'))
-						.catch(err => res.send('Fail'));
-				}
-			});
+		const user = await User.find({ googleID }).limit(1);
+		const prevScore = user[0].score;
+		if (score > prevScore) {
+			await User.updateOne({ googleID }, { $set: { score } });
+		}
 	});
 };

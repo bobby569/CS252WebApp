@@ -1,5 +1,10 @@
-.action-button {
+.button {
 	margin: 10px;
+}
+
+.table {
+	width: 100%;
+	height: 100%;
 }
 
 .table-bordered td {
@@ -9,4 +14,9 @@
 .number {
 	color: '#fdffea';
 	font-size: '2.3rem';
+}
+
+.board {
+	margin: auto;
+	text-align: center;
 }

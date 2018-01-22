@@ -24,8 +24,8 @@ export default class GameOverAlert extends React.Component {
 					contentStyle={dialogStyle}
 					open={open}
 				>
-					Game over! You cannot graduation this time. You can definitely do better. Try
-					again?
+					Game over! You cannot graduation at this time. You can definitely do better.
+					Try again?
 				</Dialog>
 			</MuiThemeProvider>
 		);
