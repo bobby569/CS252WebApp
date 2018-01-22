@@ -16,18 +16,18 @@ class Content extends Component {
 	}
 
 	componentDidMount() {
-		this.getMaxScore();
+		axios
+			.get('/api/getMaxScore')
+			.then(res => this.setState({ maxScore: res.data[0].score }))
+			.catch(err => console.error(err));
 	}
 
 	componentWillReceiveProps(nextProps) {
 		this.setState({ personalMaxScore: nextProps.auth.score });
 	}
 
-	getMaxScore() {
-		axios
-			.get('/api/getMaxScore')
-			.then(res => this.setState({ maxScore: res.data[0].score }))
-			.catch(err => console.error(err));
+	saveScore(score) {
+		axios.post('/api/saveScore', { score }).then(res => true);
 	}
 
 	updateScore(score) {
@@ -37,7 +37,7 @@ class Content extends Component {
 
 		if (this.props.auth && currScore > personalMaxScore) {
 			this.setState({ personalMaxScore: currScore });
-			axios.post('/api/saveScore', { score: currScore }).then(() => this.getMaxScore());
+			this.saveScore(currScore);
 		}
 	}
 
@@ -48,7 +48,10 @@ class Content extends Component {
 			<div>
 				<div className="row">
 					<ScoreCard name="Highest Score" score={maxScore} />
-					<ScoreCard name="Personal Record" score={auth ? personalMaxScore : '--'} />
+					<ScoreCard
+						name="Personal Record"
+						score={auth ? personalMaxScore : '--'}
+					/>
 					<ScoreCard name="Current Score" score={currScore} />
 				</div>
 				<Board

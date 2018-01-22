@@ -9,13 +9,8 @@ module.exports = app => {
 		res.send(user);
 	});
 
-	app.post('/api/saveScore', async (req, res) => {
+	app.post('/api/saveScore', (req, res) => {
 		const { body: { score }, user: { googleID } } = req;
-
-		const user = await User.find({ googleID }).limit(1);
-		const prevScore = user[0].score;
-		if (score > prevScore) {
-			await User.updateOne({ googleID }, { $set: { score } });
-		}
+		User.updateOne({ googleID }, { $max: { score } }).then(stat => res.send('Success'));
 	});
 };

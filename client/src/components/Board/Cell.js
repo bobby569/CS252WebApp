@@ -1,5 +1,3 @@
-import './styles/color.css';
-import './styles/general.css';
 import React, { Component } from 'react';
 import classnames from 'classnames';
 
@@ -14,7 +12,8 @@ const mapping = {
 	256: 373,
 	512: 381,
 	1024: 471,
-	2048: 473
+	2048: 473,
+	4096: 580
 };
 
 export default class Cell extends Component {

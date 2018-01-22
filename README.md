@@ -19,4 +19,4 @@ The 2048 game in Purdue CS version
 
 ### Technology and service used:
 
-MERN (MongoDB, Express, React, Node.js) Stack, Redux, Google OAuth2, mLab, Heroku
+MERN (MongoDB, Express, React, Node.js) Stack, Redux, Google OAuth2, Heroku

@@ -2,11 +2,7 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-const dialogStyle = {
-	width: '50%',
-	maxWidth: 'none'
-};
+import { dialogStyle } from './util';
 
 export default class GameOverAlert extends React.Component {
 	render() {

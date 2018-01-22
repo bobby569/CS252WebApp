@@ -1,9 +1,25 @@
 export const DIM = 4;
 
+export const dialogStyle = {
+	width: '50%',
+	maxWidth: 'none'
+};
+
 export const hasMoved = function(mat1, mat2) {
 	for (let i = 0; i < DIM; i++) {
 		for (let j = 0; j < DIM; j++) {
 			if (mat1[i][j] !== mat2[i][j]) {
+				return true;
+			}
+		}
+	}
+	return false;
+};
+
+export const isGraduate = function(matrix) {
+	for (let i = 0; i < DIM; i++) {
+		for (let j = 0; j < DIM; j++) {
+			if (matrix[i][j] === 4096) {
 				return true;
 			}
 		}

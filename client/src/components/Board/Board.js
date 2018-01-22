@@ -1,11 +1,11 @@
-import './styles/general.css';
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import GameOverAlert from './GameOverAlert';
+import Graduation from './Graduation';
 import Row from './Row';
 
-import { DIM, hasMoved, getRandomFrom, mergeCell } from './util';
+import { DIM, hasMoved, isGraduate, getRandomFrom, mergeCell } from './util';
 
 export default class Board extends Component {
 	constructor(props) {
@@ -14,7 +14,8 @@ export default class Board extends Component {
 		this.state = {
 			matrix: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
 			tempMatrix: null,
-			gameOver: false
+			gameOver: false,
+			graduate: false
 		};
 
 		this.onKeyPress = this.onKeyPress.bind(this);
@@ -170,8 +171,8 @@ export default class Board extends Component {
 
 		const { tempMatrix } = this.state;
 		if (!hasMoved(matrix, tempMatrix)) return;
-
 		this.setState({ matrix: tempMatrix });
+		if (isGraduate(matrix)) return this.setState({ graduate: true });
 		this.randomGenerate();
 		this.setState({ gameOver: this.isGameOver() });
 	}
@@ -180,12 +181,12 @@ export default class Board extends Component {
 		this.props.handleReset();
 		let { matrix } = this.state;
 		matrix.forEach((r, ridx) => r.forEach((c, cidx) => (matrix[ridx][cidx] = 0)));
-		this.setState({ matrix, gameOver: false });
+		this.setState({ matrix, gameOver: false, graduate: false });
 		this.randomGenerate();
 	}
 
 	render() {
-		const { matrix, gameOver } = this.state;
+		const { matrix, gameOver, graduate } = this.state;
 		return (
 			<div className="row">
 				<div className="col s12 m10 board">
@@ -212,6 +213,8 @@ export default class Board extends Component {
 					onYes={this.handleReset}
 					onNo={() => this.setState({ gameOver: false })}
 				/>
+
+				<Graduation open={graduate} onOk={this.handleReset} />
 			</div>
 		);
 	}
