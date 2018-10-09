@@ -1,13 +1,13 @@
 [Play the game!](https://purdue2048.herokuapp.com)
 
 [Here](https://github.com/bobby569/CS252WebApp/tree/1701c25b7f748a5b359536b94c23f0356c46d2ed)
-is the version submitted for Fall 2017 Lab6 grading.
+is the version submitted for Purdue CS252 Fall 2017 Lab6 grading.
 
 ### Team Member:
 
-* [Yuchen (Bobby) Zhang](http://bobby569.com): zhan2175@purdue.edu
-* [Zhuoya (Sophia) Chen](https://github.com/zhuoyachen526): chen1800@purdue.edu
-* [Chengjia (Garret) Wu](https://github.com/Figrua): wu918@purdue.edu
+- [Yuchen (Bobby) Zhang](http://bobby569.com): zhan2175@purdue.edu
+- [Zhuoya (Sophia) Chen](https://github.com/zhuoyachen526): chen1800@purdue.edu
+- [Chengjia (Garret) Wu](https://github.com/Figrua): wu918@purdue.edu
 
 ### App name:
 

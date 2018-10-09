@@ -1,43 +1,39 @@
 {
-	"name": "Purdue2048",
-	"version": "1.0.0",
-	"description": "2048 Game in Purdue CS Version",
-	"main": "index.js",
-	"engines": {
-		"node": "8.9.4",
-		"yarn": "1.5.1"
-	},
-	"scripts": {
-		"setup": "yarn install && cd client && yarn install",
-		"start": "node index.js",
-		"server": "nodemon index.js",
-		"client": "cd client && yarn start",
-		"dev": "concurrently \"yarn server\" \"yarn client\"",
-		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && yarn install && yarn build"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/bobby569/Purdue2048.git"
-	},
-	"keywords": [
-		"Purdue",
-		"CS",
-		"Lawson",
-		"2048",
-		"Tracks"
-	],
-	"license": "MIT",
-	"dependencies": {
-		"bluebird": "^3.5.1",
-		"body-parser": "^1.18.2",
-		"concurrently": "^3.5.1",
-		"cookie-session": "^2.0.0-beta.3",
-		"express": "^4.16.2",
-		"mongoose": "5.0.7",
-		"passport": "^0.4.0",
-		"passport-google-oauth20": "^1.0.0"
-	},
-	"devDependencies": {
-		"nodemon": "1.17.1"
-	}
+  "name": "Purdue2048",
+  "version": "1.0.0",
+  "description": "2048 Game in Purdue CS Version",
+  "main": "index.js",
+  "engines": {
+    "node": "10.15.0",
+    "yarn": "1.13.0"
+  },
+  "scripts": {
+    "setup": "yarn && cd client && yarn",
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "cd client && yarn start",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && yarn && yarn build"
+  },
+  "keywords": [
+    "Purdue",
+    "CS",
+    "2048",
+    "Tracks"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "3.5.3",
+    "body-parser": "1.18.3",
+    "concurrently": "4.1.0",
+    "cookie-session": "^2.0.0-beta.3",
+    "express": "4.16.4",
+    "firebase": "5.8.0",
+    "mongoose": "5.4.6",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "1.18.9"
+  }
 }
